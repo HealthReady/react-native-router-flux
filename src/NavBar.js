@@ -38,6 +38,7 @@ import {
 import Actions from './Actions';
 import _drawerImage from './menu_burger.png';
 import _backButtonImage from './back_chevron.png';
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
   title: {
@@ -141,9 +142,7 @@ const styles = StyleSheet.create({
     width: 13,
     height: 21,
   },
-  rightButtonIconStyle: {
-
-  },
+  rightButtonIconStyle: {},
   defaultImageStyle: {
     height: 24,
     resizeMode: 'contain',
@@ -242,16 +241,16 @@ class NavBar extends React.Component {
         onPress={onPress}
       >
         {buttonImage && !childState.hideBackImage &&
-          <Image
-            source={buttonImage}
-            style={[
+        <Image
+          source={buttonImage}
+          style={[
               styles.backButtonImage,
               this.props.leftButtonIconStyle,
               state.barButtonIconStyle,
               state.leftButtonIconStyle,
               childState.leftButtonIconStyle,
             ]}
-          />
+        />
         }
         {text}
       </TouchableOpacity>
@@ -260,6 +259,7 @@ class NavBar extends React.Component {
 
   renderRightButton(navProps) {
     const self = this;
+
     function tryRender(state, wrapBy) {
       if (!state) {
         return null;
@@ -295,17 +295,17 @@ class NavBar extends React.Component {
             onPress={onPress}
           >
             {rightTitle &&
-              <Text style={textStyle}>
-                {rightTitle}
-              </Text>
+            <Text style={textStyle}>
+              {rightTitle}
+            </Text>
             }
             {state.rightButtonImage &&
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
-                <Image
-                  source={state.rightButtonImage}
-                  style={state.rightButtonIconStyle}
-                />
-              </View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
+              <Image
+                source={state.rightButtonImage}
+                style={state.rightButtonIconStyle}
+              />
+            </View>
             }
           </TouchableOpacity>
         );
@@ -319,12 +319,14 @@ class NavBar extends React.Component {
       }
       return null;
     }
+
     return tryRender(this.props.component, this.props.wrapBy) || tryRender(this.props);
   }
 
   renderLeftButton(navProps) {
     const self = this;
     const drawer = this.context.drawer;
+
     function tryRender(state, wrapBy) {
       let onPress = state.onLeft;
       let buttonImage = state.leftButtonImage;
@@ -377,18 +379,18 @@ class NavBar extends React.Component {
             onPress={onPress}
           >
             {leftTitle &&
-              <Text style={textStyle}>
-                {leftTitle}
-              </Text>
+            <Text style={textStyle}>
+              {leftTitle}
+            </Text>
             }
             {buttonImage &&
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-                {menuIcon || <Image
-                  source={buttonImage}
-                  style={state.leftButtonIconStyle || styles.defaultImageStyle}
-                />
-                }
-              </View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+              {menuIcon || <Image
+                source={buttonImage}
+                style={state.leftButtonIconStyle || styles.defaultImageStyle}
+              />
+              }
+            </View>
             }
           </TouchableOpacity>
         );
@@ -401,6 +403,7 @@ class NavBar extends React.Component {
       }
       return null;
     }
+
     return tryRender(this.props.component, this.props.wrapBy) || tryRender(this.props);
   }
 
@@ -449,7 +452,7 @@ class NavBar extends React.Component {
       state = selected;
       selected = selected.children[selected.index];
     }
-    const navProps = { ...this.props, ...selected };
+    const navProps = {...this.props, ...selected};
     const renderLeftButton = selected.renderLeftButton ||
       selected.component.renderLeftButton ||
       this.renderLeftButton;
@@ -469,11 +472,16 @@ class NavBar extends React.Component {
           this.props.navigationBarStyle,
           state.navigationBarStyle,
           selected.navigationBarStyle,
+          this.props.navigationBarStyle.navBarColors ? {backgroundColor: 'transparent'} : null
         ]}
       >
-        {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
-        {renderBackButton(navProps) || renderLeftButton(navProps)}
-        {renderRightButton(navProps)}
+        <LinearGradient
+          colors={this.props.navigationBarStyle.navBarColors ? this.props.navigationBarStyle.navBarColors : []}
+          style={{flex: 1}}>
+          {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
+          {renderBackButton(navProps) || renderLeftButton(navProps)}
+          {renderRightButton(navProps)}
+        </LinearGradient>
       </Animated.View>
     );
   }
