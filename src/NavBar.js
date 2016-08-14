@@ -162,7 +162,7 @@ const propTypes = {
   titleOpacity: PropTypes.number,
   titleProps: PropTypes.any,
   position: PropTypes.object,
-  navigationBarStyle: View.propTypes.style,
+  navigationBarStyle: View.propTypes.style || PropTypes.arrayOf(PropTypes.string),
   renderTitle: PropTypes.any,
 };
 
