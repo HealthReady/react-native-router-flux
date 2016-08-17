@@ -162,7 +162,8 @@ const propTypes = {
   titleOpacity: PropTypes.number,
   titleProps: PropTypes.any,
   position: PropTypes.object,
-  navigationBarStyle: PropTypes.object,
+  navigationBarStyle: View.propTypes.style,
+  navigationBarColors: PropTypes.arrayOf(PropTypes.string),
   renderTitle: PropTypes.any,
 };
 
@@ -244,12 +245,12 @@ class NavBar extends React.Component {
         <Image
           source={buttonImage}
           style={[
-              styles.backButtonImage,
-              this.props.leftButtonIconStyle,
-              state.barButtonIconStyle,
-              state.leftButtonIconStyle,
-              childState.leftButtonIconStyle,
-            ]}
+            styles.backButtonImage,
+            this.props.leftButtonIconStyle,
+            state.barButtonIconStyle,
+            state.leftButtonIconStyle,
+            childState.leftButtonIconStyle,
+          ]}
         />
         }
         {text}
@@ -472,11 +473,11 @@ class NavBar extends React.Component {
           this.props.navigationBarStyle,
           state.navigationBarStyle,
           selected.navigationBarStyle,
-          this.props.navigationBarStyle.navBarColors ? {backgroundColor: 'transparent'} : null
+          this.props.navigationBarColors ? {backgroundColor: 'transparent'} : null
         ]}
       >
         <LinearGradient
-          colors={this.props.navigationBarStyle.navBarColors ? this.props.navigationBarStyle.navBarColors : []}
+          colors={this.props.navigationBarColors ? this.props.navigationBarColors : []}
           style={{flex: 1}}>
           {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
           {renderBackButton(navProps) || renderLeftButton(navProps)}
