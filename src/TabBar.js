@@ -51,13 +51,13 @@ class TabBar extends Component {
       ? true
       : deepestExplicitValueForKey(state, 'hideTabBar');
     console.log('state', state);
-    var popOvers = {}, badges = {};
+    var popovers = {}, badges = {};
     for (var i = 0; i < state.children.length; i++) {
-      if (state.children[i].children[0].showPopOver) {
-        popOvers[state.children[i].children[0].showPopOver.key] = state.children[i].children[0].showPopOver;
+      if (state.children[i].children[0].showPopover) {
+        popovers[state.children[i].children[0].showPopover.key] = state.children[i].children[0].showPopover;
       }
-      if (state.children[i].children[0].closePopOver) {
-        popOvers[state.children[i].children[0].closePopOver.key] = null;
+      if (state.children[i].children[0].closePopover) {
+        popovers[state.children[i].children[0].closePopover.key] = null;
       }
       if (state.children[i].children[0].showBadge) {
         badges[state.children[i].children[0].showBadge.key] = state.children[i].children[0].showBadge;
@@ -86,7 +86,7 @@ class TabBar extends Component {
         >
           {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
             const Icon = el.icon || this.props.tabIcon;
-            return <Icon {...this.props} {...el} popOver={popOvers[el.sceneKey]} badge={badges[el.sceneKey]}/>;
+            return <Icon {...this.props} {...el} popover={popovers[el.sceneKey]} badge={badges[el.sceneKey]}/>;
           })}
         </Tabs>
         }
