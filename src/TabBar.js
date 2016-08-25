@@ -50,22 +50,7 @@ class TabBar extends Component {
     const hideTabBar = this.props.unmountScenes
       ? true
       : deepestExplicitValueForKey(state, 'hideTabBar');
-    console.log('state', state);
-    var popovers = {}, badges = {};
-    for (var i = 0; i < state.children.length; i++) {
-      if (state.children[i].children[0].showPopover) {
-        popovers[state.children[i].children[0].showPopover.key] = state.children[i].children[0].showPopover;
-      }
-      if (state.children[i].children[0].closePopover) {
-        popovers[state.children[i].children[0].closePopover.key] = null;
-      }
-      if (state.children[i].children[0].showBadge) {
-        badges[state.children[i].children[0].showBadge.key] = state.children[i].children[0].showBadge;
-      }
-      if (state.children[i].children[0].closeBadge) {
-        badges[state.children[i].children[0].closeBadge.key] = undefined;
-      }
-    }
+
     return (
       <View
         style={{ flex: 1 }}
@@ -83,10 +68,13 @@ class TabBar extends Component {
           onSelect={this.onSelect} {...state}
           selected={state.children[state.index].sceneKey}
           pressOpacity={this.props.pressOpacity}
+          popovers={this.props.popovers}
+          popoverOnPress={this.props.popoverOnPress}
+          badges={this.props.badges}
         >
           {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
             const Icon = el.icon || this.props.tabIcon;
-            return <Icon {...this.props} {...el} popover={popovers[el.sceneKey]} badge={badges[el.sceneKey]}/>;
+            return <Icon {...this.props} {...el} />;
           })}
         </Tabs>
         }

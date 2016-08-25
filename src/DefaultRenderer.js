@@ -20,7 +20,7 @@ import {
 import TabBar from './TabBar';
 import NavBar from './NavBar';
 import Actions from './Actions';
-import { deepestExplicitValueForKey } from './Util';
+import {deepestExplicitValueForKey} from './Util';
 import NavigationExperimental from 'react-native-experimental-navigation';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
@@ -71,9 +71,9 @@ function fadeInScene(/* NavigationSceneRendererProps */ props) {
   return {
     opacity,
     transform: [
-      { scale },
-      { translateX },
-      { translateY },
+      {scale},
+      {translateX},
+      {translateY},
     ],
   };
 }
@@ -94,7 +94,7 @@ function leftToRight(/* NavigationSceneRendererProps */ props) {
 
   return {
     transform: [
-      { translateX },
+      {translateX},
     ],
   };
 }
@@ -141,12 +141,12 @@ export default class DefaultRenderer extends Component {
       NavigationCardStackPanResponder.forHorizontal(props);
   }
 
-  dispatchFocusAction({ navigationState }) {
+  dispatchFocusAction({navigationState}) {
     if (!navigationState || navigationState.component || navigationState.tabs) {
       return;
     }
     const scene = navigationState.children[navigationState.index];
-    Actions.focus({ scene });
+    Actions.focus({scene});
   }
 
   chooseInterpolator(direction, props) {
@@ -163,13 +163,14 @@ export default class DefaultRenderer extends Component {
   }
 
   renderCard(/* NavigationSceneRendererProps */ props) {
-    const { key,
+    const {
+      key,
       direction,
       animation,
       getSceneStyle,
       getPanHandlers,
     } = props.scene.navigationState;
-    let { panHandlers, animationStyle } = props.scene.navigationState;
+    let {panHandlers, animationStyle} = props.scene.navigationState;
 
     const state = props.navigationState;
     const child = state.children[state.index];
@@ -178,7 +179,7 @@ export default class DefaultRenderer extends Component {
       selected = selected.children[selected.index];
     }
     const isActive = child === selected;
-    const computedProps = { isActive };
+    const computedProps = {isActive};
     if (isActive) {
       computedProps.hideNavBar = deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
       computedProps.hideTabBar = deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
@@ -241,11 +242,11 @@ export default class DefaultRenderer extends Component {
     // console.log(`renderHeader for ${child.key}`);
 
     if (selected.component && selected.component.renderNavigationBar) {
-      return selected.component.renderNavigationBar({ ...props, ...selected });
+      return selected.component.renderNavigationBar({...props, ...selected});
     }
 
     const HeaderComponent = selected.navBar || child.navBar || state.navBar || NavBar;
-    const navBarProps = { ...state, ...child, ...selected };
+    const navBarProps = {...state, ...child, ...selected};
 
     if (selected.component && selected.component.onRight) {
       navBarProps.onRight = selected.component.onRight;
@@ -277,11 +278,11 @@ export default class DefaultRenderer extends Component {
     delete navBarProps.style;
 
     const getTitle = selected.getTitle || (opts => opts.title);
-    return <HeaderComponent {...props} {...navBarProps} getTitle={getTitle} />;
+    return <HeaderComponent {...props} {...navBarProps} getTitle={getTitle}/>;
   }
 
   render() {
-    const { navigationState, onNavigate } = this.props;
+    const {navigationState, onNavigate} = this.props;
 
     if (!navigationState || !onNavigate) {
       console.error('navigationState and onNavigate property should be not null');
@@ -291,7 +292,11 @@ export default class DefaultRenderer extends Component {
     let SceneComponent = navigationState.component;
 
     if (navigationState.tabs && !SceneComponent) {
-      SceneComponent = TabBar;
+      if (typeof navigationState.tabs === 'boolean') {
+        SceneComponent = TabBar;
+      } else {
+        SceneComponent = navigationState.tabs;
+      }
     }
 
     if (SceneComponent) {
@@ -319,7 +324,7 @@ export default class DefaultRenderer extends Component {
           if (duration === 0) {
             pos.setValue(navState.index);
           } else {
-            Animated.timing(pos, { toValue: navState.index, duration }).start();
+            Animated.timing(pos, {toValue: navState.index, duration}).start();
           }
         };
       }
