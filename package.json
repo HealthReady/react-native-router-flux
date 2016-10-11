@@ -40,6 +40,7 @@
     "react-addons-pure-render-mixin": "15.0.2",
     "react-native-experimental-navigation": "0.26.x",
     "react-native-linear-gradient": "1.5.12",
+    "react-native-loading-spinner-overlay": "^0.3.0",
     "react-native-tabs": "https://github.com/HealthReady/react-native-tabs/tarball/b871b1f8869807d1a09d03464e7be6d56c1abad2",
     "react-static-container": "1.0.1"
   },
