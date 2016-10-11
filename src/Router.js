@@ -120,7 +120,7 @@ class Router extends Component {
     this.setState({ reducer: routerReducer });
   }
 
-  renderNavigation(navigationState, onNavigate, spinner) {
+  renderNavigation(navigationState, onNavigate) {
     if (!navigationState) {
       return null;
     }
@@ -137,7 +137,7 @@ class Router extends Component {
       return (constAction ? onNavigate({ ...props, type: constAction }) : onNavigate(props));
     };
 
-    return <DefaultRenderer onNavigate={onNavigate} navigationState={navigationState} spinner={spinner} />;
+    return <DefaultRenderer onNavigate={onNavigate} navigationState={navigationState} spinner={this.props.spinner} />;
   }
 
   render() {
