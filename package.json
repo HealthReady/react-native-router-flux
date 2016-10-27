@@ -41,7 +41,7 @@
     "react-native-experimental-navigation": "0.26.x",
     "react-native-linear-gradient": "1.5.12",
     "react-native-loading-spinner-overlay": "^0.3.0",
-    "react-native-tabs": "https://github.com/HealthReady/react-native-tabs/tarball/860b82e785b41dcb8c0824478d2966aa62ecd146",
+    "react-native-tabs": "https://github.com/HealthReady/react-native-tabs/tarball/db95af56b063b4f8bca9544c6ccda3e1da3b8801",
     "react-static-container": "1.0.1"
   },
   "devDependencies": {
