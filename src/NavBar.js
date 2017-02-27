@@ -480,7 +480,7 @@ class NavBar extends React.Component {
       this.props.renderTitle;
     var propsNavigationBarStyle = this.props.navigationBarStyle;
     var stateNavigationBarStyle = state.navigationBarStyle;
-    if (this.props.navigationBarBottomBorderMargin) {
+    if (this.props.navigationBarBorderBottomMargin) {
       propsNavigationBarStyle.borderBottomWidth = 0;
       stateNavigationBarStyle.borderBottomWidth = 0;
     }
@@ -494,8 +494,8 @@ class NavBar extends React.Component {
           this.props.navigationBarColors ? {backgroundColor: 'transparent'} : null
         ]}
       >
-        {this.props.navigationBarBottomBorderMargin ? <View
-            style={{position: 'absolute', top: 0, left: this.props.navigationBarBottomBorderMargin, right: this.props.navigationBarBottomBorderMargin, bottom: 0, borderBottomWidth: 1, borderBottomColor: '#FFF'}}/> : null}
+        {this.props.navigationBarBorderBottomMargin ? <View
+            style={{position: 'absolute', top: 0, left: this.props.navigationBarBorderBottomMargin, right: this.props.navigationBarBorderBottomMargin, bottom: 0, borderBottomWidth: 1, borderBottomColor: '#FFF'}}/> : null}
         <LinearGradient
           colors={this.props.navigationBarColors ? this.props.navigationBarColors : []}
           style={{flex: 1}}>
