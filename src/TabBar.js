@@ -71,6 +71,7 @@ class TabBar extends Component {
           popovers={this.props.popovers}
           popoverOnPress={this.props.popoverOnPress}
           badges={this.props.badges}
+          badgeBackgroundColor={this.props.badgeBackgroundColor}
         >
           {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
             const Icon = el.icon || this.props.tabIcon;
