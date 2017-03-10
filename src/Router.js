@@ -137,7 +137,10 @@ class Router extends Component {
       return (constAction ? onNavigate({ ...props, type: constAction }) : onNavigate(props));
     };
 
-    return <DefaultRenderer onNavigate={onNavigate} navigationState={navigationState} spinner={this.props.spinner} />;
+    return <DefaultRenderer onNavigate={onNavigate} navigationState={navigationState}
+                            backgroundOverlayVisible={this.props.backgroundOverlayVisible}
+                            backgroundOverlayStyle={this.props.backgroundOverlayStyle}
+                            spinner={this.props.spinner} />;
   }
 
   render() {
