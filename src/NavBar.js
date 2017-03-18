@@ -548,13 +548,18 @@ class NavBar extends React.Component {
             >
                 {this.props.navigationBarBorderBottomMargin ? <View
                         style={{position: 'absolute', top: 0, left: this.props.navigationBarBorderBottomMargin, right: this.props.navigationBarBorderBottomMargin, bottom: 0, borderBottomWidth: 1, borderBottomColor: '#FFF'}}/> : null}
-                <LinearGradient
-                    colors={this.props.navigationBarColors ? this.props.navigationBarColors : []}
-                    style={{flex: 1}}>
-                    {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
-                    {renderBackButton(navProps) || renderLeftButton(navProps)}
-                    {renderRightButton(navProps)}
-                </LinearGradient>
+                {this.props.navigationBarColors && this.props.navigationBarColors.length >= 2 ? <LinearGradient
+                      colors={this.props.navigationBarColors}
+                      style={{flex: 1}}>
+                  {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
+                  {renderBackButton(navProps) || renderLeftButton(navProps)}
+                  {renderRightButton(navProps)}
+                </LinearGradient> :
+                <View style={{flex: 1}}>
+                  {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
+                  {renderBackButton(navProps) || renderLeftButton(navProps)}
+                  {renderRightButton(navProps)}
+                </View>}
             </Animated.View>
         );
     }
