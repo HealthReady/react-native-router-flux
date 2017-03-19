@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
                 top: 20,
             },
             android: {
-                top: 5,
+                top: 0,
             },
         }),
         bottom: 1,
