@@ -10,12 +10,12 @@ import React, {
   Component,
   PropTypes,
 } from 'react';
-import { BackAndroid } from 'react-native';
+import {BackAndroid} from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';
 
-import Actions, { ActionMap } from './Actions';
+import Actions, {ActionMap} from './Actions';
 import getInitialState from './State';
-import Reducer, { findElement } from './Reducer';
+import Reducer, {findElement} from './Reducer';
 import DefaultRenderer from './DefaultRenderer';
 import Scene from './Scene';
 import * as ActionConst from './ActionConst';
@@ -35,20 +35,20 @@ class Router extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    const reducer = this.handleProps(props);
+    this.state = {reducer};
     this.renderNavigation = this.renderNavigation.bind(this);
     this.handleProps = this.handleProps.bind(this);
     this.handleBackAndroid = this.handleBackAndroid.bind(this);
   }
 
   componentDidMount() {
-    this.handleProps(this.props);
-
     BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   componentWillReceiveProps(props) {
-    this.handleProps(props);
+    const reducer = this.handleProps(props);
+    this.setState({reducer});
   }
 
   componentWillUnmount() {
@@ -104,7 +104,7 @@ class Router extends Component {
     }
 
     // eslint-disable-next-line no-unused-vars
-    const { children, styles, scenes, reducer, createReducer, ...parentProps } = props;
+    const {children, styles, scenes, reducer, createReducer, ...parentProps} = props;
 
     scenesMap.rootProps = parentProps;
 
@@ -112,12 +112,12 @@ class Router extends Component {
     const reducerCreator = props.createReducer || Reducer;
 
     const routerReducer = props.reducer || (
-      reducerCreator({
-        initialState,
-        scenes: scenesMap,
-      }));
+        reducerCreator({
+          initialState,
+          scenes: scenesMap,
+        }));
 
-    this.setState({ reducer: routerReducer });
+    return routerReducer;
   }
 
   renderNavigation(navigationState, onNavigate) {
@@ -129,18 +129,18 @@ class Router extends Component {
       const constAction = (props.type && ActionMap[props.type] ? ActionMap[props.type] : null);
       if (this.props.dispatch) {
         if (constAction) {
-          this.props.dispatch({ ...props, type: constAction });
+          this.props.dispatch({...props, type: constAction});
         } else {
           this.props.dispatch(props);
         }
       }
-      return (constAction ? onNavigate({ ...props, type: constAction }) : onNavigate(props));
+      return (constAction ? onNavigate({...props, type: constAction}) : onNavigate(props));
     };
 
     return <DefaultRenderer onNavigate={onNavigate} navigationState={navigationState}
                             backgroundOverlayVisible={this.props.backgroundOverlayVisible}
                             backgroundOverlayStyle={this.props.backgroundOverlayStyle}
-                            spinner={this.props.spinner} />;
+                            spinner={this.props.spinner}/>;
   }
 
   render() {
