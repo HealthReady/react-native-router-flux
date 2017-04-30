@@ -453,8 +453,8 @@ class NavBar extends React.Component {
         if (typeof(title) === 'function') {
             title = title(childState);
         }
-        const pagerState = this.props.getPagerState();
-        const pagerVisible = this.props.sceneKey == 'Home_';
+        const pagerState = this.props.getPagerState && this.props.getPagerState();
+        const pagerVisible = pagerState && this.props.sceneKey == 'Home_';
         const pagerIndex = this.props.pagerIndex;
         return (
             <View style={styles.titleWrapper} key={'title_wrapper_' + childState.key}>
