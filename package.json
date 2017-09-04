@@ -37,12 +37,12 @@
     }
   ],
   "dependencies": {
-    "react-addons-pure-render-mixin": "15.5.0",
+    "react-addons-pure-render-mixin": "^15.5.0",
     "react-native-experimental-navigation": "0.26.x",
     "react-native-linear-gradient": "1.5.12",
     "react-native-loading-spinner-overlay": "git://github.com/HealthReady/react-native-loading-spinner-overlay.git",
     "react-native-tabs": "https://github.com/HealthReady/react-native-tabs/tarball/034df69f159717ad47e2b4a33ffeb0b4d411b50e",
-    "react-static-container": "1.0.1"
+    "react-static-container": "^1.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.7.6",
